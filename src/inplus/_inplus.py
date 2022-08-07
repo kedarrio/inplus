@@ -35,7 +35,7 @@ class Input:
         return prompt, error
 
     @classmethod
-    def string(cls, prompt: str | NoneType = None) -> str:
+    def string(cls, prompt: str | NoneType = None, error: str | NoneType = None) -> str:
         """string
 
         ask a input from user and return a string.
