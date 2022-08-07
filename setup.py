@@ -14,11 +14,6 @@ with open(os.path.join(__here__, 'README.md'), encoding='utf-8') as f:
 # get version from git tag.
 _v = subprocess.run(['git', 'describe', '--tags'], stdout=subprocess.PIPE).stdout.decode('utf-8').strip()
 
-_v = '0.0.3'
-
-# update version.
-with open(os.path.join(__here__, 'VERSION'), "w", encoding='utf-8') as f:
-    f.write(f'{_v}\n')
 
 setup(
     name='inplus',
