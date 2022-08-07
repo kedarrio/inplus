@@ -1,5 +1,6 @@
 import os
 import subprocess
+
 from setuptools import setup
 
 # get setup.py file path.
@@ -14,6 +15,7 @@ with open(os.path.join(__here__, 'README.md'), encoding='utf-8') as f:
 _v = subprocess.run(['git', 'describe', '--tags'], stdout=subprocess.PIPE).stdout.decode('utf-8').strip()
 assert "." in _v
 
+# update version.
 assert os.path.isfile(os.path.join(__here__, 'VERSION'))
 with open(os.path.join(__here__, 'VERSION'), encoding='utf-8') as f:
     f.write(f'{_v}\n')
