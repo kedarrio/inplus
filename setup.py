@@ -1,6 +1,6 @@
 import os
-
-from setuptools import find_packages, setup
+import subprocess
+from setuptools import setup
 
 # get setup.py file path.
 __here__ = os.path.abspath(os.path.dirname(__file__))
@@ -10,18 +10,27 @@ __here__ = os.path.abspath(os.path.dirname(__file__))
 with open(os.path.join(__here__, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
+# get version from git tag.
+_v = subprocess.run(['git', 'describe', '--tags'], stdout=subprocess.PIPE).stdout.decode('utf-8').strip()
+assert "." in _v
+
+assert os.path.isfile(os.path.join(__here__, 'VERSION'))
+with open(os.path.join(__here__, 'VERSION'), encoding='utf-8') as f:
+    f.write(f'{_v}\n')
 
 setup(
     name='inplus',
-    version='0.0.1',
+    version=_v,
     description='efficient input methods.',
     long_description=long_description,
     long_description_content_type='text/markdown',
     author='kedarr',
     classifiers=[
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",
-        "Programming Language :: Python :: 3",
         "Topic :: Utilities",
     ],
     keywords='inplus, input, input methods, input methods for python',
@@ -29,5 +38,5 @@ setup(
     license='MIT',
     packages=["inplus"],
     package_dir={"": "src"},
-    python_requires = '>=3.10'
+    python_requires='>=3.10'
 )
