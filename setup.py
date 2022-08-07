@@ -1,7 +1,7 @@
 import os
 import subprocess
 
-from setuptools import setup
+from setuptools import find_packages, setup
 
 # get setup.py file path.
 __here__ = os.path.abspath(os.path.dirname(__file__))
@@ -13,11 +13,11 @@ with open(os.path.join(__here__, 'README.md'), encoding='utf-8') as f:
 
 # get version from git tag.
 _v = subprocess.run(['git', 'describe', '--tags'], stdout=subprocess.PIPE).stdout.decode('utf-8').strip()
-assert "." in _v
+
+_v = '0.0.3'
 
 # update version.
-assert os.path.isfile(os.path.join(__here__, 'VERSION'))
-with open(os.path.join(__here__, 'VERSION'), encoding='utf-8') as f:
+with open(os.path.join(__here__, 'VERSION'), "w", encoding='utf-8') as f:
     f.write(f'{_v}\n')
 
 setup(
@@ -40,5 +40,6 @@ setup(
     license='MIT',
     packages=["inplus"],
     package_dir={"": "src"},
-    python_requires='>=3.10'
+    package=find_packages("src"),
+    python_requires='>=3.9'
 )
